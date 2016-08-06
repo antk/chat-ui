@@ -1,1 +1,8 @@
-<p>partial for list</p>
+<ul>
+  <li ng-repeat="chat in userChats">
+    <span ng-repeat="participant in chat.participants">
+      <strong>{{ participant.firstName }}{{ $last ? '' : ',' }}</strong>
+    </span>
+    <div class="lastMsg">{{ chat.messages[chat.messages.length-1].text }}</div>
+  </li>
+</ul>

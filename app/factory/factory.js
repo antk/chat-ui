@@ -2,39 +2,31 @@
 
 angular.module('chat')
 
-.factory('DataService', [ 
-  function() {
-    var data = 
-    [
-      {
-        "user": "Peter Parker", 
-        "id":0, 
-        "chats":[], 
-        "contacts":[]
-      },
-      {
-        "user": "Eddie Brock", 
-        "id":1, 
-        "chats":[], 
-        "contacts":[]
-      },
-    ];
+.factory('DataService', ['$http',
+  function($http) {
+    var users = [];
+    var chats = [];
 
-    // always return an array
-    var getData = function(id) {
-      id = parseInt(id, 10);
-      if(isNaN(id)) return [];
-      var i = data.length - 1;
-      do {
-        if(data[i].id === id) {
-          return [data[i]];
-        }
-      } while(i--);
-      return [];
+    var getData = function(url) {
+      return $http.get(url)
+        .then(function(response) {
+          return response.data;
+        }, function(errResponse) {
+          throw errResponse.status + ': ' + errResponse.data;
+      });
+    };
+
+    var getChats = function() {
+      return getData('../data/chats.json');
+    };
+
+    var getUsers = function() {
+      return getData('../data/users.json');
     }
-
+    
     return {
-      getData: getData
-    }
+      getChats: getChats,
+      getUsers: getUsers
+    };
   }
 ]);

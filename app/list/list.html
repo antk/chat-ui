@@ -1,10 +1,13 @@
-<ul class="chat-list">
-  <li ng-repeat="chat in userChats">
-    <a ng-href="#!/details/{{chat.chat_id}}">
-      <div class="participants" ng-repeat="participant in chat.participants">
-        <strong>{{ participant.firstName }}{{ $last ? '' : ',' }}</strong>
-      </div>
-      <div class="lastMsg">{{ chat.messages[chat.messages.length-1].text }}</div>
-    </a>
-  </li>
-</ul>
+<section-header title="Chats" type="list"></section-header>
+<div class="chat-list-container">
+  <ul class="chat-list">
+    <li ng-repeat="chat in userChats">
+      <a ng-href="#!/details/{{uid}}/{{chat.chat_id}}">
+        <div class="participants" ng-repeat="participant in chat.participants">
+          <strong>{{ participant.firstName }}{{ $last ? '' : ',' }}</strong>
+        </div>
+        <div class="lastMsg">{{ chat.messages[chat.messages.length-1].text }}</div>
+      </a>
+    </li>
+  </ul>
+</div>

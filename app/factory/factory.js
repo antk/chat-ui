@@ -4,9 +4,33 @@ angular.module('chat')
 
 .factory('DataService', ['$http',
   function($http) {
-    var users = [];
-    var chats = [];
 
+    // non-promisey methods
+
+    // helper method to get user record by id
+    // used inside async callbacks, so need to pass in array to search, too
+    var getUserById = function(id, userData) {
+      var c = userData.length - 1;
+      id = parseInt(id, 10);
+      if(isNaN(id)) return;
+      do {
+        if(userData[c].id === id) {
+          return userData[c];
+        }
+      } while(c--);
+      return {};
+    };
+
+    // return an array of participant user objects
+    var getParticipants = function(pIds, userData) {
+      var pNames = [];
+      for(var i=0; i<pIds.length; i++) {
+        pNames.push(getUserById(pIds[i], userData));
+      }
+      return pNames;
+    }
+
+    // promisey methods
     var getData = function(url) {
       return $http.get(url)
         .then(function(response) {
@@ -23,10 +47,58 @@ angular.module('chat')
     var getUsers = function() {
       return getData('../data/users.json');
     }
+
+    var getChatById = function(cid) {
+      return getUsers().then(function(userData) {
+        return getChats().then(function(chatData) {
+          var theChat = null;
+          var i = chatData.length - 1;
+          do {
+            if(chatData[i].chat_id === cid) {
+              theChat = chatData[i];
+              theChat.participants = getParticipants(theChat.participants, userData);
+              // console.log(theChat);
+              break;
+            }
+          } while(i--);
+          return {
+            chat: theChat
+          }
+        });
+      });
+    };
+
+    var getChatsByUserId = function(uid) {
+      return getUsers().then(function(userData) {
+        var user = getUserById(uid, userData);
+        return getChats().then(function(chatData) {
+          var chats = chatData;
+          var userChats = [];
+          for(var i = 0; i < chats.length; i++) {
+            var foundIdx = chats[i].participants.indexOf(uid);
+            if(foundIdx >= 0) {
+              // remove the user
+              chats[i].participants.splice(foundIdx, 1);
+
+              // replace participant id's with participant names
+              chats[i].participants = getParticipants(chats[i].participants, userData);
+              userChats.push(chats[i]);
+            }
+          }
+          return { 
+            user: user,
+            chats: userChats
+          };
+        });
+      });
+    }
     
     return {
       getChats: getChats,
-      getUsers: getUsers
+      getUsers: getUsers,
+      getChatById: getChatById,
+      getChatsByUserId: getChatsByUserId
     };
   }
-]);
+])
+

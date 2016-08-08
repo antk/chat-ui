@@ -16,6 +16,7 @@ angular.module('chat.details', ['ngRoute'])
     if(!isNaN($scope.chatId) && !isNaN($scope.userId)) {
       $scope.messages = [];
       $scope.newMessage = "";
+      $scope.pageTitle = ["."];
 
       $scope.insertMessage = function(msg) {
         if(!msg) {
@@ -55,7 +56,7 @@ angular.module('chat.details', ['ngRoute'])
           }
         }
         $scope.participants = p;
-        $scope.participantsTitle = theParticipants;
+        $scope.pageTitle = theParticipants;
         for(var i=0; i<data.chat.messages.length; i++) {
           var msg = data.chat.messages[i];
           msg.last = true;
@@ -63,7 +64,6 @@ angular.module('chat.details', ['ngRoute'])
           var prevMsg = i-1 > -1 ? prevMsg = data.chat.messages[i-1] : null;
           var nextMsg = i+1 < data.chat.messages.length ? data.chat.messages[i+1] : null;
           if(nextMsg && nextMsg.sender_id === msg.sender_id) {
-            console.log('here');
             msg.last = false;
           }
 

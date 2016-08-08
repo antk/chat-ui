@@ -16,10 +16,13 @@ angular.module('chat.details', ['ngRoute'])
     if(!isNaN($scope.chatId) && !isNaN($scope.userId)) {
       $scope.messages = [];
       $scope.newMessage = "";
-      $scope.insertMessage = function(sender_id) {
-        var msgId = $scope.messages[$scope.messages.length-1].msg_id + 1;
-        var msg = {"msg_id":msgId, "sender_id":sender_id, "text":$scope.newMessage, "datetime":""}
-        console.log(msg);
+
+      $scope.insertMessage = function(msg) {
+        if(!msg) {
+          console.log('here');
+          var msgId = $scope.messages[$scope.messages.length-1].msg_id + 1;
+          msg = {"msg_id":msgId, "sender_id":$scope.userId, "text":$scope.newMessage, "datetime":""}  
+        }
         $scope.messages.push(msg);
         $scope.newMessage = "";
       }
@@ -34,7 +37,9 @@ angular.module('chat.details', ['ngRoute'])
           }
         }
         $scope.participants = theParticipants.join(', ');
-        $scope.messages = data.chat.messages;
+        for(var i=0; i<data.chat.messages.length; i++) {
+          $scope.insertMessage(data.chat.messages[i]);
+        }
       }); 
     }
   }

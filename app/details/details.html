@@ -10,9 +10,9 @@
   </div>
 
   <div class="new-message-field">
-    <div class="new-message-inputs">
+    <form class="new-message-inputs">
       <input type="text" ng-model="newMessage"/>
-      <button ng-click="insertMessage(userId)">send</button>
-    </div>
+      <input type="submit" ng-click="insertMessage(userId)" value="send"/>
+    </form>
   </div>
 </div>

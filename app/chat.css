@@ -13,4 +13,4 @@ header .left { position: absolute; top: 15px; left: 10px; }
 .chat-detail .new-message-field { position: absolute; bottom: 0; border-top: 1px solid #ccc; width: 100%; }
 .chat-detail .new-message-inputs { padding: 10px; }
 .chat-detail .new-message-inputs input[type="text"] { border: 1px solid #eee; padding: 5px; width: 75%; }
-.chat-detail .new-message-inputs button { border: 1px solid; width: 15%; }
+.chat-detail .new-message-inputs input[type="submit"] { border: 1px solid; width: 15%; }

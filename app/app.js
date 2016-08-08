@@ -3,6 +3,7 @@
 // Declare app level module which depends on views, and components
 angular.module('chat', [
   'ngRoute',
+  'ngAnimate',
   'chat.list',
   'chat.details'
 ]).

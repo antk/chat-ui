@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('chat.details', ['ngRoute'])
+angular.module('chat.details', ['ngRoute','ngAnimate'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/details/:uid/:id', {
@@ -11,12 +11,13 @@ angular.module('chat.details', ['ngRoute'])
 
 .controller('DetailsCtrl', ['$scope', '$routeParams', 'DataService',
   function($scope, $routeParams, DataService) {
+    $scope.pageClass = 'animate-details';
     $scope.chatId = parseInt($routeParams.id, 10);
     $scope.userId = parseInt($routeParams.uid, 10);
     if(!isNaN($scope.chatId) && !isNaN($scope.userId)) {
       $scope.messages = [];
-      $scope.newMessage = "";
-      $scope.pageTitle = ["."];
+      $scope.newMessage = '';
+      $scope.pageTitle = ['.'];
 
       $scope.insertMessage = function(msg) {
         if(!msg) {
@@ -43,7 +44,7 @@ angular.module('chat.details', ['ngRoute'])
 
         console.log(msg);
         $scope.messages.push(msg);
-        $scope.newMessage = "";
+        $scope.newMessage = '';
       }
 
       DataService.getChatById($scope.chatId).then(function(data) {

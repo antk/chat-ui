@@ -46,3 +46,15 @@ header h2 { font-size: 1.2em; width: 50%; margin: 0px auto; text-overflow: ellip
 .chat-detail .messages .right,
 .chat-detail .messages .self { float: right; position: relative; }
 .chat-detail .messages .self.last:after { content: ""; display: block; width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 10px solid #bdfcc9; position: absolute; bottom: 0px; left: initial; right: 15px; -webkit-transform: rotate(135deg); }
+
+.animate-view { 
+  -webkit-transition: .2s linear all; /* Safari/Chrome */
+  -moz-transition: .2s linear all; /* Firefox */
+  -o-transition: .2s linear all; /* Opera */
+  transition: .2s linear all; /* IE10+ and Future Browsers */
+}
+.animate-view.animate-list.ng-enter { opacity: 0; -webkit-transform: translateX(-100%);}
+.animate-view.animate-list.ng-leave { opacity: 1; }
+
+.animate-view.animate-details.ng-enter { opacity: 0; -webkit-transform: translateX(100%); }
+.animate-view.animate-details.ng-leave { opacity: 1; }

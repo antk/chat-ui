@@ -1,11 +1,17 @@
 <div class="chat-detail">
   <div ng-if="participants">
-    <section-header title="{{participants}}" type="chatDetail"></section-header>
+    <section-header title="{{participantsTitle.join(', ')}}" type="chatDetail"></section-header>
   </div>
 
   <div ng-if="messages">
-    <ul>
-      <li class="message" ng-repeat="msg in messages" ng-class="{'self': msg.sender_id==userId}">{{ msg.text }}</li>
+    <ul class="messages">
+      <li class="message-container" ng-repeat="msg in messages" 
+          ng-class="{'self': msg.sender_id==userId, 'last right': msg.sender_id==userId && msg.last, 'last left': msg.last && msg.sender_id != userId }">
+          <div class="message">
+            <div class="sender" ng-if="msg.sender_id!==userId && participants.length > 2">{{ msg.senderFirst }}</div>
+            <div class="text">{{ msg.text }}</div>
+          </div>
+      </li>
     </ul>
   </div>
 

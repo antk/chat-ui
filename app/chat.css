@@ -3,14 +3,30 @@ li { padding: 0; margin: 0; }
 a { text-decoration: none; color: #333; }
 body { font-size: 14px; }
 h2 { padding: 0; margin: 0; }
+
+
+
 header { background: #f5f5f5; text-align: center; padding: 10px; border-bottom: 1px solid #ccc; position: relative; }
 header .right { position: absolute; top: 15px; right: 10px; }
 header .left { position: absolute; top: 15px; left: 10px; }
+header h2 { font-size: 1.2em; width: 50%; margin: 0px auto; text-overflow: ellipsis; overflow-x: hidden; white-space: nowrap; }
 .chat-list-container { overflow-y: scroll; -webkit-overflow-scrolling: touch; }
 .chat-list li { padding: 10px; border-bottom: 1px solid #ccc; }
 .chat-list .participants { display: inline-block; margin: 0 3px 0 0; }
 
+.chat-detail { background: #eee; overflow: auto; }
 .chat-detail .new-message-field { position: absolute; bottom: 0; border-top: 1px solid #ccc; width: 100%; }
 .chat-detail .new-message-inputs { padding: 10px; }
 .chat-detail .new-message-inputs input[type="text"] { border: 1px solid #eee; padding: 5px; width: 75%; }
 .chat-detail .new-message-inputs input[type="submit"] { border: 1px solid; width: 15%; }
+
+.chat-detail .messages { padding: 10px 0; overflow: auto; }
+.chat-detail .messages .message-container { display: block; max-width: 80%; overflow: auto; float: left; clear: both; position: relative; }
+.chat-detail .messages .message { padding: 3px 5px; margin: 0px 0 5px 20px; -webkit-box-shadow: 0px 1px 1px 1px #ccc; border-radius: 3px; background: #fff; }
+.chat-detail .messages .sender { font-weight: bold; }
+.chat-detail .messages .last { margin-bottom: 10px; }
+.chat-detail .messages .last:after { content: ""; display: block; width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 10px solid #fff; position: absolute; bottom: 0px; left: 15px; -webkit-transform: rotate(45deg);}
+.chat-detail .messages .self .message { background-color: #bdfcc9; margin: 0 20px 5px 0; -webkit-box-shadow: 0px 1px 1px 1px #ccc;}
+.chat-detail .messages .right,
+.chat-detail .messages .self { float: right; position: relative; }
+.chat-detail .messages .self.last:after { content: ""; display: block; width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 10px solid #bdfcc9; position: absolute; bottom: 0px; left: initial; right: 15px; -webkit-transform: rotate(135deg); }

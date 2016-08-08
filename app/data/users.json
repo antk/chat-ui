@@ -1,7 +1,10 @@
 [
 	{"id":0, "firstName":"Peter", "lastName":"Parker"},
-	{"id":1, "firstName":"Scott", "lastName":"Summers"},
+	{"id":1, "firstName":"Bruce", "lastName":"Banner"},
   {"id":2, "firstName":"Steve", "lastName":"Rogers"},
   {"id":3, "firstName":"Tony", "lastName":"Stark"},
-  {"id":4, "firstName":"Clint", "lastName":"Barton"}
+  {"id":4, "firstName":"Clint", "lastName":"Barton"},
+  {"id":5, "firstName":"Natasha", "lastName":"Romanova"},
+  {"id":6, "firstName":"Wanda", "lastName": "Maximoff"},
+  {"id":7, "firstName":"Nicholas", "lastName": "Fury"}
 ]

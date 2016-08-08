@@ -19,10 +19,28 @@ angular.module('chat.details', ['ngRoute'])
 
       $scope.insertMessage = function(msg) {
         if(!msg) {
-          console.log('here');
           var msgId = $scope.messages[$scope.messages.length-1].msg_id + 1;
-          msg = {"msg_id":msgId, "sender_id":$scope.userId, "text":$scope.newMessage, "datetime":""}  
+          msg = {"msg_id":msgId, "sender_id":$scope.userId, "text":$scope.newMessage, "datetime":"", "last":true};
         }
+        var lastMsg = $scope.messages[$scope.messages.length-1];
+        if(lastMsg && lastMsg.sender_id == msg.sender_id) {
+          $scope.messages[$scope.messages.length-1].last = false;
+        }
+
+        // get the participant name and append to msg
+        if($scope.participants) {
+          var i = $scope.participants.length - 1;
+          do {
+            var p = $scope.participants[i];
+            if(p.id === msg.sender_id) {
+              msg.senderFirst = p.firstName;
+              msg.senderLast = p.lastName;
+              break;
+            }
+          } while(i--);
+        }
+
+        console.log(msg);
         $scope.messages.push(msg);
         $scope.newMessage = "";
       }
@@ -36,9 +54,21 @@ angular.module('chat.details', ['ngRoute'])
             theParticipants.push(p[i].firstName);
           }
         }
-        $scope.participants = theParticipants.join(', ');
+        $scope.participants = p;
+        $scope.participantsTitle = theParticipants;
         for(var i=0; i<data.chat.messages.length; i++) {
-          $scope.insertMessage(data.chat.messages[i]);
+          var msg = data.chat.messages[i];
+          msg.last = true;
+          
+          var prevMsg = i-1 > -1 ? prevMsg = data.chat.messages[i-1] : null;
+          var nextMsg = i+1 < data.chat.messages.length ? data.chat.messages[i+1] : null;
+          if(nextMsg && nextMsg.sender_id === msg.sender_id) {
+            console.log('here');
+            msg.last = false;
+          }
+
+
+          $scope.insertMessage(msg);
         }
       }); 
     }

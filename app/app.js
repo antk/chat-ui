@@ -6,7 +6,8 @@ angular.module('chat', [
   'ngAnimate',
   'ngSanitize',
   'chat.list',
-  'chat.details'
+  'chat.details',
+  'chat.new'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');

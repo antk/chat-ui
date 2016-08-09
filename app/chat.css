@@ -4,6 +4,15 @@ a { text-decoration: none; color: #333; }
 body { font-size: 14px; }
 h2 { padding: 0; margin: 0; }
 
+.icon {
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+}
+
 .arrow-left { 
   width: 0;
   height: 0;
@@ -19,22 +28,27 @@ h2 { padding: 0; margin: 0; }
 }
 
 header { background: #f5f5f5; text-align: center; padding: 10px; border-bottom: 1px solid #ccc; position: relative; }
-header .right { position: absolute; top: 15px; right: 10px; }
+header .right { position: absolute; top: 0; right: 0; bottom: 0; width: 12%; height: 50%; overflow: auto; margin: auto; }
 header .left { position: absolute; top: 15px; left: 10px; }
 header .back { color: #2281FB; }
 header .back div { display: inline-block; }
 header .back .text { position: relative; top: -1px; }
 header h2 { font-size: 1.2em; width: 50%; margin: 0px auto; text-overflow: ellipsis; overflow-x: hidden; white-space: nowrap; }
+header .new-msg {  }
 .chat-list-container { overflow-y: scroll; -webkit-overflow-scrolling: touch; }
 .chat-list li { padding: 10px; border-bottom: 1px solid #ccc; }
 .chat-list .participants { display: inline-block; margin: 0 3px 0 0; }
 
 .chat-detail { overflow: auto; }
 .chat-detail .message-detail-container { background: #eee; }
-.chat-detail .new-message-field { border-top: 1px solid #ccc; width: 100%; }
-.chat-detail .new-message-inputs { padding: 10px; }
+.chat-detail .new-message-field { border-top: 1px solid #ccc; width: 100%; position: absolute; bottom: 0; }
+.chat-detail .new-message-inputs { padding: 10px; background-color: #fff; }
 .chat-detail .new-message-inputs input[type="text"] { border: 1px solid #eee; padding: 5px; width: 75%; }
 .chat-detail .new-message-inputs input[type="submit"] { border: 1px solid; width: 15%; }
+.chat-detail .new-message-inputs #msgEl { display: inline-block; width: 60%; padding: 5px; border: 1px solid #ccc; margin-left: 10%; }
+.chat-detail .new-message-inputs .send-link { color: #2281FB; position: absolute; top: 8px; right: 0; bottom: 0; width: 12%; height: 50%; overflow: auto; margin: auto; }
+.chat-detail .new-message-inputs .upload-link { position: absolute; top: 0; left: 3%; bottom: 0; width: 10%; height: 50%; overflow: auto; margin: auto; }
+.chat-detail .new-message-inputs .camera-link { position: absolute; top: 0; right: 9%; bottom: 0; width: 15%; height: 50%; overflow: auto; margin: auto; }
 
 .chat-detail .messages { padding: 10px 0; overflow: auto; }
 .chat-detail .messages .message-container { display: block; max-width: 80%; overflow: auto; float: left; clear: both; position: relative; }
@@ -46,6 +60,8 @@ header h2 { font-size: 1.2em; width: 50%; margin: 0px auto; text-overflow: ellip
 .chat-detail .messages .right,
 .chat-detail .messages .self { float: right; position: relative; }
 .chat-detail .messages .self.last:after { content: ""; display: block; width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 10px solid #bdfcc9; position: absolute; bottom: 0px; left: initial; right: 15px; -webkit-transform: rotate(135deg); }
+
+
 
 .animate-view { 
   -webkit-transition: .2s linear all; /* Safari/Chrome */

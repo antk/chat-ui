@@ -9,7 +9,7 @@ angular.module('chat.list', ['ngRoute', 'ngAnimate'])
   });
 }])
 
-.controller('ListCtrl', ['$scope', '$routeParams', 'DataService', 'UserChatService', function($scope, $routeParams, DataService, UserChatService) {
+.controller('ListCtrl', ['$scope', '$routeParams', 'UserChatService', function($scope, $routeParams, UserChatService) {
   $scope.uid = $routeParams.id ? parseInt($routeParams.id, 10) : 0;
   $scope.userChats = [];
   $scope.pageClass = "animate-list";

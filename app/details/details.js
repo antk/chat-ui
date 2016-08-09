@@ -9,8 +9,8 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
   });
 }])
 
-.controller('DetailsCtrl', ['$scope', '$routeParams', 'DataService', 'UserChatService',
-  function($scope, $routeParams, DataService, UserChatService) {
+.controller('DetailsCtrl', ['$scope', '$routeParams', 'UserChatService',
+  function($scope, $routeParams, UserChatService) {
     $scope.pageClass = 'animate-details';
     $scope.chatId = parseInt($routeParams.id, 10);
     $scope.userId = parseInt($routeParams.uid, 10);

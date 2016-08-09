@@ -102,6 +102,7 @@ angular.module('chat')
   }
 ])
 
+// use the UserChatService to get user data and store it for future access
 .factory('UserChatService', ['$q', 'DataService', function($q, DataService) {
   var data = {user: {}, chats: []};
 

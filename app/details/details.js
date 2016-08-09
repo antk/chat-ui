@@ -49,8 +49,23 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
         document.getElementById('msgEl').innerHTML = '';
       }
 
+      var shiftDown = false;
+
       $scope.setMessage = function($event) {
         $scope.newMessage = $event.target.innerText;
+        shiftDown = false;
+      };
+      
+      $scope.checkForShiftEnter = function($event) {
+        if($event.keyCode === 16) {
+          shiftDown = true;
+        }
+        if(shiftDown) {
+          if($event.keyCode === 13) {
+            $event.preventDefault();
+            $scope.insertMessage($scope.userId);
+          }
+        }
       };
 
       UserChatService.getDataForUser($scope.userId).then(function(data) {

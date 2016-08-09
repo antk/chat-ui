@@ -19,7 +19,7 @@ angular.module('chat.details', ['ngRoute','ngAnimate'])
       $scope.newMessage = '';
       $scope.pageTitle = ['.'];
 
-      $scope.insertMessage = function(msg) {
+      $scope.insertMessage = function(msg) {        
         if(!msg) {
           var msgId = $scope.messages[$scope.messages.length-1].msg_id + 1;
           msg = {"msg_id":msgId, "sender_id":$scope.userId, "text":$scope.newMessage, "datetime":"", "last":true};
@@ -42,6 +42,7 @@ angular.module('chat.details', ['ngRoute','ngAnimate'])
           } while(i--);
         }
         console.log(msg);
+        if(msg.text.length <= 0) return;
         $scope.messages.push(msg);
         $scope.newMessage = '';
         document.getElementById('msgEl').innerHTML = '';

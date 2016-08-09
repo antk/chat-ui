@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('chat.details', ['ngRoute','ngAnimate'])
+angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/details/:uid/:id', {
@@ -49,7 +49,7 @@ angular.module('chat.details', ['ngRoute','ngAnimate'])
       }
 
       $scope.setMessage = function($event) {
-        $scope.newMessage = $event.target.innerHTML;
+        $scope.newMessage = $event.target.innerText;
       };
 
       DataService.getChatById($scope.chatId).then(function(data) {

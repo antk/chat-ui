@@ -8,7 +8,7 @@
           ng-class="{'self': msg.sender_id==userId, 'last right': msg.sender_id==userId && msg.last, 'last left': msg.last && msg.sender_id != userId }">
           <div class="message">
             <div class="sender" ng-if="msg.sender_id!==userId && participants.length > 2">{{ msg.senderFirst }}</div>
-            <div class="text">{{ msg.text }}</div>
+            <div class="text" ng-bind-html="msg.text"></div>
           </div>
       </li>
     </ul>

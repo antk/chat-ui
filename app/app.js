@@ -4,6 +4,7 @@
 angular.module('chat', [
   'ngRoute',
   'ngAnimate',
+  'ngSanitize',
   'chat.list',
   'chat.details'
 ]).
@@ -11,4 +12,10 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
   $locationProvider.hashPrefix('!');
 
   $routeProvider.otherwise({redirectTo: '/list'});
-}]);
+}]).
+filter('trustAsHtml', ['$sce', function($sce){
+  return function(html){
+    console.log(html);
+    return $sce.trustAsHtml(html); 
+  }
+}])

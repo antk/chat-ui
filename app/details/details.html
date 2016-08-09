@@ -16,8 +16,11 @@
 
   <div class="new-message-field" id="footer">
     <form class="new-message-inputs">
-      <input type="text" ng-model="newMessage"/>
-      <input type="submit" ng-click="insertMessage(userId)" value="send"/>
+      <a class="upload-link" href="javascript:alert('demo')"><svg class="icon icon-upload"><use xlink:href="#icon-upload"></use></svg></a>
+      <div id="msgEl" contenteditable="true" ng-keyup="setMessage($event)"></div>
+      <input type="hidden" ng-model="newMessage"/>
+      <a class="camera-link" href="javascript:alert('camera link')"><svg class="icon icon-camera"><use xlink:href="#icon-camera"></use></svg></a>
+      <a class="send-link" href="javascript:void(0)" ng-click="insertMessage(userId)">Send</a>
     </form>
   </div>
 </div>

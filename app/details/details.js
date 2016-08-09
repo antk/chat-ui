@@ -41,11 +41,15 @@ angular.module('chat.details', ['ngRoute','ngAnimate'])
             }
           } while(i--);
         }
-
         console.log(msg);
         $scope.messages.push(msg);
         $scope.newMessage = '';
+        document.getElementById('msgEl').innerHTML = '';
       }
+
+      $scope.setMessage = function($event) {
+        $scope.newMessage = $event.target.innerHTML;
+      };
 
       DataService.getChatById($scope.chatId).then(function(data) {
         console.log(data);

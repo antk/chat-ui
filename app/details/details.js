@@ -19,10 +19,11 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
       $scope.newMessage = '';
       $scope.pageTitle = ['.'];
 
-      $scope.insertMessage = function(msg) {        
-        if(!msg) {
+      $scope.insertMessage = function(msg) {
+        if(!msg) { // this is a new message
           var msgId = $scope.messages[$scope.messages.length-1].msg_id + 1;
           msg = {"msg_id":msgId, "sender_id":$scope.userId, "text":$scope.newMessage, "datetime":"", "last":true};
+          UserChatService.addMessage($scope.chatId, msg);
         }
         var lastMsg = $scope.messages[$scope.messages.length-1];
         if(lastMsg && lastMsg.sender_id == msg.sender_id) {

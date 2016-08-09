@@ -9,14 +9,15 @@ angular.module('chat.list', ['ngRoute', 'ngAnimate'])
   });
 }])
 
-.controller('ListCtrl', ['$scope', '$routeParams', 'DataService', function($scope, $routeParams, DataService) {
+.controller('ListCtrl', ['$scope', '$routeParams', 'DataService', 'UserChatService', function($scope, $routeParams, DataService, UserChatService) {
   $scope.uid = $routeParams.id ? parseInt($routeParams.id, 10) : 0;
   $scope.userChats = [];
   $scope.pageClass = "animate-list";
+
   if(!isNaN($scope.uid)) {
-    DataService.getChatsByUserId($scope.uid).then(function(data) {
+    UserChatService.getDataForUser($scope.uid).then(function(data) {
       $scope.userChats = data.chats;
-    })
+    });
   }
 
 }]);

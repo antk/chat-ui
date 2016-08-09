@@ -1,9 +1,9 @@
 <section-header title="Chats" type="list"></section-header>
 <div class="chat-list-container content-container" set-height>
   <ul class="chat-list">
-    <li ng-repeat="chat in userChats">
+    <li ng-repeat="chat in userChats track by $index">
       <a ng-href="#!/details/{{uid}}/{{chat.chat_id}}">
-        <div class="participants" ng-repeat="participant in chat.participants">
+        <div class="participants" ng-repeat="participant in chat.participants track by $index">
           <strong>{{ participant.firstName }}{{ $last ? '' : ',' }}</strong>
         </div>
         <div class="lastMsg">{{ chat.messages[chat.messages.length-1].text }}</div>

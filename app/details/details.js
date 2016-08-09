@@ -9,8 +9,8 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
   });
 }])
 
-.controller('DetailsCtrl', ['$scope', '$routeParams', 'DataService',
-  function($scope, $routeParams, DataService) {
+.controller('DetailsCtrl', ['$scope', '$routeParams', 'DataService', 'UserChatService',
+  function($scope, $routeParams, DataService, UserChatService) {
     $scope.pageClass = 'animate-details';
     $scope.chatId = parseInt($routeParams.id, 10);
     $scope.userId = parseInt($routeParams.uid, 10);
@@ -52,10 +52,21 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
         $scope.newMessage = $event.target.innerText;
       };
 
-      DataService.getChatById($scope.chatId).then(function(data) {
+      UserChatService.getDataForUser($scope.userId).then(function(data) {
         console.log(data);
+        var theChat = {};
+
+        // find the chat
+        var i = data.chats.length - 1;
+        do {
+          if(data.chats[i].chat_id === $scope.chatId) {
+            theChat = data.chats[i];
+            break;
+          }
+        } while(i--);
+
         var theParticipants = [];
-        var p = data.chat.participants;
+        var p = theChat.participants;
         for(var i=0; i<p.length; i++) {
           if(p[i].id !== $scope.userId) {
             theParticipants.push(p[i].firstName);
@@ -63,20 +74,19 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
         }
         $scope.participants = p;
         $scope.pageTitle = theParticipants;
-        for(var i=0; i<data.chat.messages.length; i++) {
-          var msg = data.chat.messages[i];
+        for(var i=0; i<theChat.messages.length; i++) {
+          var msg = theChat.messages[i];
           msg.last = true;
           
-          var prevMsg = i-1 > -1 ? prevMsg = data.chat.messages[i-1] : null;
-          var nextMsg = i+1 < data.chat.messages.length ? data.chat.messages[i+1] : null;
+          var prevMsg = i-1 > -1 ? prevMsg = theChat.messages[i-1] : null;
+          var nextMsg = i+1 < theChat.messages.length ? theChat.messages[i+1] : null;
           if(nextMsg && nextMsg.sender_id === msg.sender_id) {
             msg.last = false;
           }
-
-
           $scope.insertMessage(msg);
         }
-      }); 
+        // UserChatService.addMessage($scope.chatId, msg);
+      });
     }
   }
 ]);

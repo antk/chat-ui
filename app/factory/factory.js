@@ -102,3 +102,43 @@ angular.module('chat')
   }
 ])
 
+.factory('UserChatService', ['$q', 'DataService', function($q, DataService) {
+  var data = {user: {}, chats: []};
+
+  var getDataForUser = function(uid) {
+    var deferred = $q.defer();
+    if(!data.user || data.chats.length === 0) {
+      console.log('no data yet, get it');
+      // we don't have data yet, go get it
+      DataService.getChatsByUserId(uid).then(function(theData) {
+        data.user = theData.user;
+        data.chats = theData.chats;
+        deferred.resolve(theData);
+      });
+    }
+    else {
+      console.log('this service has data, send that instead');
+      deferred.resolve(data);
+    }
+    return deferred.promise;
+  };
+
+  var addMessage = function(chat_id, message) {
+    var i = data.chats.length - 1;
+    do {
+      if(data.chats[i].chat_id === chat_id) {
+        data.chats[i].messages.push(message);
+        break;
+      }
+    } while(i--);
+  };
+
+  return {
+    getDataForUser: getDataForUser,
+    addMessage: addMessage
+
+  };
+
+
+}]);
+

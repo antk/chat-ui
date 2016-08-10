@@ -67,6 +67,8 @@ header .new-msg {  }
 .new-msg-container .new-msg-to-field { padding: 5px 10px; border-bottom: 1px solid #ccc; }
 .new-msg-container .new-msg-recipients { width: 85%; padding: 5px; display: inline-block; }
 
+.new-msg-container .contacts li { padding: 10px; border-bottom: 1px solid #ddd; }
+
 .animate-view { 
   -webkit-transition: .2s linear all; /* Safari/Chrome */
   -moz-transition: .2s linear all; /* Firefox */

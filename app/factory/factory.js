@@ -114,7 +114,23 @@ angular.module('chat')
       DataService.getChatsByUserId(uid).then(function(theData) {
         data.user = theData.user;
         data.chats = theData.chats;
-        deferred.resolve(theData);
+        DataService.getUsers().then(function(userData) {
+          // convert userData array to key value pairs
+          var kvUsers = {};
+          var i = userData.length - 1;
+          do {
+            kvUsers[userData[i].id] = userData[i];
+          } while(i--);
+          var theContacts = []; // change id's to actual user info
+          var j = data.user.contacts.length - 1;
+          do { 
+            var rec = kvUsers[data.user.contacts[j]];
+            delete rec.contacts;
+            theContacts.push(rec);
+          } while(j--);
+          data.user.contacts = theContacts;
+          deferred.resolve(theData);
+        });
       });
     }
     else {

@@ -14,8 +14,19 @@ angular.module('chat.new', ['ngRoute', 'ngAnimate'])
   $scope.pageClass = "animate-new-msg";
 
   if(!isNaN($scope.uid)) {
-    UserChatService.getDataForUser($scope.uid).then(function(data) {
+    // $scope.filteredContacts = [];
+    $scope.filterContacts = function($event) {
+      angular.element($event.target).bind('keydown', function(e) {
+        if(e.keyCode === 13) { e.preventDefault(); }
+      })
+      if($event.keyCode === 13) {
+        console.log('enter key');
+      }
+      $scope.searchText = $event.target.innerText;
       
+    };
+    UserChatService.getDataForUser($scope.uid).then(function(data) {
+      $scope.contacts = data.user.contacts;
     });
   }
 

@@ -1,8 +1,14 @@
 <section-header title="New Message" type="new"></section-header>
 <div class="new-msg-container">
   <div class="new-msg-to-field">
-    To: <div class="new-msg-recipients" contenteditable="true"></div>
+    To: <div class="new-msg-recipients" contenteditable="true" ng-keyup="filterContacts($event)"></div>
+    <input type="hidden" ng-model="searchText">
   </div>
   <div class="new-msg-content-area">
+    <ul class="contacts" ng-if="contacts">
+      <li ng-repeat="contact in contacts | orderBy:'firstName' | filter:searchText">
+        <div class="contact-container">{{ contact.firstName }} {{ contact.lastName }}</div>
+      </li>
+    </ul>
   </div>
 </div>

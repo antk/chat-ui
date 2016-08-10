@@ -200,7 +200,7 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
           var msg = theChat.messages[i];
           msg.last = true;
           
-          var prevMsg = i-1 > -1 ? prevMsg = theChat.messages[i-1] : null;
+          // look at the next msg
           var nextMsg = i+1 < theChat.messages.length ? theChat.messages[i+1] : null;
           if(nextMsg && nextMsg.sender_id === msg.sender_id) {
             msg.last = false;

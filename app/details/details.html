@@ -1,26 +1,46 @@
 <div class="chat-detail">
   
-  <section-header title="{{pageTitle.join(', ')}}" type="chatDetail"></section-header>
-
-  <div ng-if="messages" class="message-detail-container content-container" set-height>
-    <ul class="messages">
-      <li class="message-container" ng-repeat="msg in messages track by $index" 
-          ng-class="{'self': msg.sender_id==userId, 'last right': msg.sender_id==userId && msg.last, 'last left': msg.last && msg.sender_id != userId }">
-          <div class="message">
-            <div class="sender" ng-if="msg.sender_id!==userId && participants.length > 2">{{ msg.senderFirst }}</div>
-            <div class="text" ng-bind-html="msg.text"></div>
+  <section-header title="{{pageTitle.join(', ')}}" type="{{ theSectionType }}"></section-header>
+  <div class="chat-detail-content" style="position:relative;" set-height>
+    <div ng-if="newChat" style="position:absolute;height:auto;width:100%;background:#fff;z-index:1" ng-class="{'faded':!contactSearch}">
+      <div class="new-msg-container">
+        <div class="new-msg-to-field">
+          To: 
+          <div class="new-msg-recipients">
+            <div ng-repeat="recipient in recipients" class="selected-contact">{{ recipient.firstName }} {{ recipient.lastName }},&nbsp;</div>
           </div>
-      </li>
-    </ul>
-  </div>
+          <input id="contactSearchField" class="text-field" type="text" ng-model="searchText" ng-keydown="checkKey($event)"/>
+        </div>
+        <div class="new-msg-content-area">
+          <ul class="contacts" ng-if="contacts && contactSearch">
+            <li ng-repeat="contact in contacts | orderBy:'firstName' | filter:searchText" ng-click="addToRecipients(contact)">
+              <div class="contact-container">{{ contact.firstName }} {{ contact.lastName }}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-  <div class="new-message-field" id="footer">
-    <form class="new-message-inputs">
-      <a class="upload-link" href="javascript:alert('demo')"><svg class="icon icon-upload"><use xlink:href="#icon-upload"></use></svg></a>
-      <div id="msgEl" contenteditable="true" ng-keyup="setMessage($event)" ng-keydown="checkForShiftEnter($event)"></div>
-      <input type="hidden" ng-model="newMessage"/>
-      <a class="camera-link" href="javascript:alert('camera link')"><svg class="icon icon-camera"><use xlink:href="#icon-camera"></use></svg></a>
-      <a class="send-link" href="javascript:void(0)" ng-click="insertMessage(userId)">Send</a>
-    </form>
+    <div ng-if="messages" class="message-detail-container content-container" style="position:absolute;z-index:0;width:100%;height:100%;">
+      <ul class="messages">
+        <li class="message-container" ng-repeat="msg in messages track by $index" 
+            ng-class="{'self': msg.sender_id==userId, 'last right': msg.sender_id==userId && msg.last, 'last left': msg.last && msg.sender_id != userId }">
+            <div class="message">
+              <div class="sender" ng-if="msg.sender_id!==userId && participants.length > 2">{{ msg.senderFirst }}</div>
+              <div class="text" ng-bind-html="msg.text"></div>
+            </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="new-message-field" id="footer">
+      <form class="new-message-inputs">
+        <a class="upload-link" href="javascript:alert('demo')"><svg class="icon icon-upload"><use xlink:href="#icon-upload"></use></svg></a>
+        <div id="msgEl" contenteditable="true" ng-keyup="setMessage($event)" ng-keydown="checkForShiftEnter($event)"></div>
+        <input type="hidden" ng-model="newMessage"/>
+        <a class="camera-link" href="javascript:alert('camera link')"><svg class="icon icon-camera"><use xlink:href="#icon-camera"></use></svg></a>
+        <a class="send-link" href="javascript:void(0)" ng-click="insertMessage(userId, true)">Send</a>
+      </form>
+    </div>
   </div>
 </div>

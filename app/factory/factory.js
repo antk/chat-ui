@@ -150,9 +150,17 @@ angular.module('chat')
     } while(i--);
   };
 
+  var addChat = function(chat) {
+    var chatId = data.chats.length;
+    chat.chat_id = chatId;
+    data.chats.push(chat);
+    return chatId;
+  }
+
   return {
     getDataForUser: getDataForUser,
-    addMessage: addMessage
+    addMessage: addMessage,
+    addChat: addChat
 
   };
 

@@ -69,6 +69,7 @@ header .new-msg {  }
 .new-msg-container .selected-contact { display: inline-block; color: #2281FB; }
 .text-field { border: 0; }
 .text-field:focus { outline: 0; }
+.faded { opacity: 0.8; }
 
 .new-msg-container .contacts li { padding: 10px; border-bottom: 1px solid #ddd; }
 

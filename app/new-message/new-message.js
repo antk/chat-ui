@@ -3,9 +3,9 @@
 angular.module('chat.new', ['ngRoute', 'ngAnimate'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/new/:id?', {
-    templateUrl: 'new-message/new-message.html',
-    controller: 'NewMsgCtrl'
+  $routeProvider.when('/new/:id?/:uid?', {
+    templateUrl: 'details/details.html',
+    controller: 'DetailsCtrl'
   });
 }])
 

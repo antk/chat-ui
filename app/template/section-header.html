@@ -1,8 +1,8 @@
 <header id="header">
-  <a ng-if="sectionType == 'chatDetail'" class="left back" ng-href="/#!/list/{{userId}}"><div class="arrow-left back"></div><div class="text">Chats</div></a>
+  <a ng-if="sectionType == 'chatDetail'" class="left back" ng-href="/#!/list/{{userId}}" title="Click or tap to go back to chat list"><div class="arrow-left back"></div><div class="text">Chats</div></a>
   <h2>{{ sectionTitle }}</h2>
-  <a ng-if="sectionType == 'list'" class="right new-msg" ng-href="/#!/new/{{userId}}" title="Click or tap to send a start a new conversation">
+  <a ng-if="sectionType == 'list'" class="right new-msg" ng-href="/#!/new/-1/{{uid}}" title="Click or tap to send a start a new conversation">
     <svg class="icon icon-compose"><use xlink:href="#icon-compose"></use></svg>
   </a>
-  <a ng-if="sectionType == 'new'" class="right cancel" ng-href="/#!/list/{{userId}}"><div>Cancel</div></a>
+  <a ng-if="sectionType == 'new'" class="right cancel" ng-href="/#!/list/{{userId}}" title="Click or tap to cancel this new conversation"><div>Cancel</div></a>
 </header>

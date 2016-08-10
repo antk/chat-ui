@@ -14,14 +14,47 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
     $scope.pageClass = 'animate-details';
     $scope.chatId = parseInt($routeParams.id, 10);
     $scope.userId = parseInt($routeParams.uid, 10);
+    $scope.theSectionType = 'chatDetail';
+    $scope.pageTitle = ['.'];
+    $scope.findChat = true;
+
+    // set some parameters for new message
+    $scope.newChat = $scope.chatId === -1 ? true : false;
+    if($scope.newChat) {
+      $scope.pageClass = 'animate-new-msg';
+      $scope.theSectionType = 'new';
+      $scope.pageTitle = ['New Message'];
+      $scope.recipients = [];
+      $scope.searchText = '';
+      $scope.contactSearch = true;
+      $scope.findChat = false;
+    }
+
+    console.log('chatId: ' + $scope.chatId + ', userId: ' + $scope.userId);
+
     if(!isNaN($scope.chatId) && !isNaN($scope.userId)) {
       $scope.messages = [];
       $scope.newMessage = '';
-      $scope.pageTitle = ['.'];
 
-      $scope.insertMessage = function(msg) {
+      $scope.insertMessage = function(msg, isNewMsg) {
         if(!msg) { // this is a new message
-          var msgId = $scope.messages[$scope.messages.length-1].msg_id + 1;
+          var msgId = 0;
+          var newChatId = -1;
+          if($scope.messages.length === 0) {
+            // this is a new chat!
+            // var newChatId = $scope.chats.length
+            var chat = {chat_id: newChatId, messages: [], participants: $scope.recipients };
+            var newParticipantArray = [];
+            for(var i=0; i<$scope.recipients.length; i++) {
+              newParticipantArray.push($scope.recipients[i].firstName);
+            }
+            $scope.pageTitle = newParticipantArray;
+            // add the chat to user's chats
+            $scope.chatId = UserChatService.addChat(chat);
+          }
+          else {
+            msgId = $scope.messages[$scope.messages.length-1].msg_id + 1;
+          }
           msg = {"msg_id":msgId, "sender_id":$scope.userId, "text":$scope.newMessage, "datetime":"", "last":true};
           UserChatService.addMessage($scope.chatId, msg);
         }
@@ -47,6 +80,10 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
         $scope.messages.push(msg);
         $scope.newMessage = '';
         document.getElementById('msgEl').innerHTML = '';
+        if(isNewMsg) {
+          $scope.newChat = false;
+          $scope.theSectionType = 'chatDetail';
+        }
       }
 
       var shiftDown = false;
@@ -63,24 +100,91 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
         if(shiftDown) {
           if($event.keyCode === 13) {
             $event.preventDefault();
-            $scope.insertMessage($scope.userId);
+            $scope.insertMessage($scope.userId, true);
           }
         }
       };
 
-      UserChatService.getDataForUser($scope.userId).then(function(data) {
-        console.log(data);
-        var theChat = {};
-
-        // find the chat
-        var i = data.chats.length - 1;
+      $scope.addToRecipients = function(contact) {
+        $scope.searchText = '';
+        document.getElementById('contactSearchField').value = '';
+        document.getElementById('contactSearchField').focus();
+        var recipientExists = false;
+        var i = $scope.recipients.length - 1;
         do {
-          if(data.chats[i].chat_id === $scope.chatId) {
-            theChat = data.chats[i];
+          if(i < 0) break;
+          if($scope.recipients[i].id === contact.id) {
+            recipientExists = true;
+            break;
+          }
+        } while(i--);
+        if(!recipientExists) {
+          $scope.contactSearch = false;
+          $scope.recipients.push(contact);
+          
+          // get the existing chat if the chat with recipient exists
+          // go through each of the chats, then each of the participants
+          var j = $scope.chats.length - 1;
+          var foundChat = null;
+          do {
+            var aChat = $scope.chats[j];
+            var recipientInChat = false;
+            // only look at chats where the number of participants is the same as number of recipients
+            if(aChat.participants.length === $scope.recipients.length) {
+              var pIdArray = [];
+              for(var n = 0; n<aChat.participants.length; n++) {
+                pIdArray.push(aChat.participants[n].id);
+              }
+              for(var m = 0; m<$scope.recipients.length; m++) {
+                console.log($scope.recipients[m].id);
+                if(pIdArray.indexOf($scope.recipients[m].id) < 0) {
+                  recipientInChat = false;
+                  break;
+                }
+                else {
+                  recipientInChat = true;
+                }
+              }
+              if(recipientInChat) {
+                foundChat = aChat;
+                break;
+              }
+            }
+          } while(j--);
+
+          if(foundChat) {
+            $scope.chatId = foundChat.chat_id;
+            chatDetails(foundChat.chat_id);
+          }
+          else {
+            $scope.messages = [];
+          }
+        }
+      };
+
+      $scope.checkKey = function($event) {
+        $scope.contactSearch = true;
+
+        if($event.keyCode === 8) {
+          if($scope.searchText.length <= 0) {
+            $scope.recipients.splice($scope.recipients.length-1, 1);
+            $scope.messages = [];
+          }
+        }
+      };
+
+      var chatDetails = function(chatId) {
+        var theChat = {};
+        var theChats = $scope.chats;
+        var i = theChats.length - 1;
+        do {
+          if(theChats[i].chat_id === chatId) {
+            theChat = theChats[i];
             break;
           }
         } while(i--);
 
+        // set the page title to the participant names
         var theParticipants = [];
         var p = theChat.participants;
         for(var i=0; i<p.length; i++) {
@@ -90,6 +194,8 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
         }
         $scope.participants = p;
         $scope.pageTitle = theParticipants;
+
+        // display the messages for this chat
         for(var i=0; i<theChat.messages.length; i++) {
           var msg = theChat.messages[i];
           msg.last = true;
@@ -101,7 +207,19 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
           }
           $scope.insertMessage(msg);
         }
-        // UserChatService.addMessage($scope.chatId, msg);
+      }
+
+      UserChatService.getDataForUser($scope.userId).then(function(data) {
+        console.log(data);
+        $scope.chats = data.chats;
+        var theChat = {};
+
+        if($scope.newChat) {
+          $scope.contacts = data.user.contacts;
+        }
+        else {
+          chatDetails($scope.chatId);
+        }
       });
     }
   }

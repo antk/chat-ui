@@ -9,10 +9,7 @@ angular.module('chat')
         var headerHeight = document.getElementById('header') ? document.getElementById('header').offsetHeight : 0;
         var footerHeight = document.getElementById('footer') ? document.getElementById('footer').offsetHeight : 0;
         var windowHeight = $window.innerHeight;
-        console.log(windowHeight);
-        console.log(headerHeight);
-        console.log(footerHeight);
-        var theHeight = windowHeight - headerHeight - footerHeight;
+        var theHeight = windowHeight - headerHeight;// - footerHeight;
         $element.css('height', theHeight + 'px');
       })
 
@@ -28,9 +25,13 @@ angular.module('chat')
     link: function($scope, $element, $attrs) {
       $scope.sectionType = $attrs.type;
       $scope.sectionTitle = $attrs.title;
-      $scope.$watch('pageTitle', function(newValue, oldValue) {
-        if(newValue) {
-          $scope.sectionTitle = newValue.join(', ');
+      $scope.$watchGroup(['pageTitle','theSectionType'], function(newValue, oldValue) {
+        console.log(newValue);
+        if(newValue[0]) {
+          $scope.sectionTitle = newValue[0].join(', ');
+        }
+        if(newValue[1]) {
+          $scope.sectionType = newValue[1];
         }
       })
     }

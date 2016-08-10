@@ -37,27 +37,26 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
       $scope.newMessage = '';
 
       $scope.insertMessage = function(msg, isNewMsg) {
-        if(!msg) { // this is a new message
+        if(isNewMsg) { // this is a new message, construct the message object to be added to this chat
+          var msg = {};
           var msgId = 0;
-          var newChatId = -1;
           if($scope.messages.length === 0) {
-            // this is a new chat!
-            // var newChatId = $scope.chats.length
-            var chat = {chat_id: newChatId, messages: [], participants: $scope.recipients };
-            var newParticipantArray = [];
+            // this is a new chat, construct a new chat object for this user
+            $scope.pageTitle = [];
+            var chat = {chat_id: -1, messages:[], participants: $scope.recipients};
             for(var i=0; i<$scope.recipients.length; i++) {
-              newParticipantArray.push($scope.recipients[i].firstName);
+              $scope.pageTitle.push($scope.recipients[i].firstName);
             }
-            $scope.pageTitle = newParticipantArray;
-            // add the chat to user's chats
+            // add the new chat to the user's chats and set $scope.chatId
             $scope.chatId = UserChatService.addChat(chat);
           }
-          else {
-            msgId = $scope.messages[$scope.messages.length-1].msg_id + 1;
+          else { // this is not a new chat, get a new message id to insert into the existing chat with $scope.chatId
+            msgId = $scope.messages[$scope.messages.length-1].msg_id+1;
           }
           msg = {"msg_id":msgId, "sender_id":$scope.userId, "text":$scope.newMessage, "datetime":"", "last":true};
           UserChatService.addMessage($scope.chatId, msg);
         }
+
         var lastMsg = $scope.messages[$scope.messages.length-1];
         if(lastMsg && lastMsg.sender_id == msg.sender_id) {
           $scope.messages[$scope.messages.length-1].last = false;
@@ -136,7 +135,7 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
                 pIdArray.push(aChat.participants[n].id);
               }
               for(var m = 0; m<$scope.recipients.length; m++) {
-                console.log($scope.recipients[m].id);
+                // console.log($scope.recipients[m].id);
                 if(pIdArray.indexOf($scope.recipients[m].id) < 0) {
                   recipientInChat = false;
                   break;

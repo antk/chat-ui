@@ -39,7 +39,7 @@
         <div id="msgEl" contenteditable="true" ng-keyup="setMessage($event)" ng-keydown="checkForShiftEnter($event)"></div>
         <input type="hidden" ng-model="newMessage"/>
         <a class="camera-link" href="javascript:alert('camera link')"><svg class="icon icon-camera"><use xlink:href="#icon-camera"></use></svg></a>
-        <a class="send-link" href="javascript:void(0)" ng-click="insertMessage(userId, true)">Send</a>
+        <a class="send-link" href="javascript:void(0)" ng-click="insertMessage(null, true)">Send</a>
       </form>
     </div>
   </div>

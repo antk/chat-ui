@@ -17,7 +17,8 @@
       {"msg_id":1, "sender_id":0, "text":"u must respect", "datetime":""},
       {"msg_id":2, "sender_id":2, "text":"my shield is better than your webz", "datetime":""},
       {"msg_id":3, "sender_id":4, "text":"my arrows is better than your shield", "datetime":""},
-      {"msg_id":4, "sender_id":4, "text":"go away pete", "datetime":""}
+      {"msg_id":4, "sender_id":4, "text":"go away pete", "datetime":""},
+      {"msg_id":5, "sender_id":2, "text":"<img src='https://s-media-cache-ak0.pinimg.com/564x/79/58/6a/79586a15370acd0027a4e07db6dc5ca4.jpg'/>", "datetime":""}
     ]
   },
   {

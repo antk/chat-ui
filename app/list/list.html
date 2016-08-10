@@ -6,7 +6,7 @@
         <div class="participants" ng-repeat="participant in chat.participants track by $index">
           <strong>{{ participant.firstName }}{{ $last ? '' : ',' }}</strong>
         </div>
-        <div class="lastMsg">{{ chat.messages[chat.messages.length-1].text }}</div>
+        <div class="lastMsg" ng-bind-html="chat.messages[chat.messages.length-1].text | imgFilter"></div>
       </a>
     </li>
   </ul>

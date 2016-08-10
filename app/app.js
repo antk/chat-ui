@@ -14,9 +14,8 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 
   $routeProvider.otherwise({redirectTo: '/list'});
 }]).
-filter('trustAsHtml', ['$sce', function($sce){
-  return function(html){
-    console.log(html);
-    return $sce.trustAsHtml(html); 
-  }
-}])
+filter('imgFilter', function() {
+  return function(str) {
+    return str.match(/<img\s.*\/>/) ? "<em>image attachment</em>" : str;
+  };
+})

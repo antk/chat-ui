@@ -26,7 +26,6 @@ angular.module('chat')
       $scope.sectionType = $attrs.type;
       $scope.sectionTitle = $attrs.title;
       $scope.$watchGroup(['pageTitle','theSectionType'], function(newValue, oldValue) {
-        console.log(newValue);
         if(newValue[0]) {
           $scope.sectionTitle = newValue[0].join(', ');
         }

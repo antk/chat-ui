@@ -14,7 +14,9 @@ angular.module('chat.new', ['ngRoute', 'ngAnimate'])
   $scope.pageClass = "animate-new-msg";
 
   if(!isNaN($scope.uid)) {
-    // $scope.filteredContacts = [];
+    $scope.recipients = [];
+    $scope.searchText = "";
+    $scope.contactSearch = true;
     $scope.filterContacts = function($event) {
       angular.element($event.target).bind('keydown', function(e) {
         if(e.keyCode === 13) { e.preventDefault(); }
@@ -25,7 +27,32 @@ angular.module('chat.new', ['ngRoute', 'ngAnimate'])
       $scope.searchText = $event.target.innerText;
       
     };
+    $scope.addToRecipients = function(contact) {
+      $scope.searchText = '';
+      document.getElementById('contactSearchField').focus();
+      var recipientExists = false;
+      var i = $scope.recipients.length - 1;
+      do {
+        if(i < 0) break;
+        if($scope.recipients[i].id === contact.id) {
+          recipientExists = true;
+          break;
+        }
+      } while(i--);
+      if(!recipientExists) {
+        $scope.recipients.push(contact);
+      }
+    };
+    $scope.checkKey = function($event) {
+      $scope.contactSearch = true;
+      if($event.keyCode === 8) {
+        if($scope.searchText.length <= 0) {
+          $scope.recipients.splice($scope.recipients.length-1, 1);
+        }
+      }
+    };
     UserChatService.getDataForUser($scope.uid).then(function(data) {
+      $scope.userChats = data.chats;
       $scope.contacts = data.user.contacts;
     });
   }

@@ -64,8 +64,11 @@ header .new-msg {  }
 .chat-detail .messages .self.last:after { content: ""; display: block; width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 10px solid #bdfcc9; position: absolute; bottom: 0px; left: initial; right: 15px; -webkit-transform: rotate(135deg); }
 
 .new-msg-container { }
-.new-msg-container .new-msg-to-field { padding: 5px 10px; border-bottom: 1px solid #ccc; }
-.new-msg-container .new-msg-recipients { width: 85%; padding: 5px; display: inline-block; }
+.new-msg-container .new-msg-to-field { padding: 10px; border-bottom: 1px solid #ccc; }
+.new-msg-container .new-msg-recipients { width: auto; display: inline-block; }
+.new-msg-container .selected-contact { display: inline-block; color: #2281FB; }
+.text-field { border: 0; }
+.text-field:focus { outline: 0; }
 
 .new-msg-container .contacts li { padding: 10px; border-bottom: 1px solid #ddd; }
 

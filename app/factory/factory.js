@@ -144,6 +144,7 @@ angular.module('chat')
     var i = data.chats.length - 1;
     do {
       if(data.chats[i].chat_id === chat_id) {
+        message.datetime = new Date().getTime();
         data.chats[i].messages.push(message);
         break;
       }

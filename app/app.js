@@ -18,4 +18,14 @@ filter('imgFilter', function() {
   return function(str) {
     return str.match(/<img\s.*\/>/) ? "<em>image attachment</em>" : str;
   };
+}).filter('datetime', function() {
+  // convert milliseconds to readable date
+  return function(milliseconds) {
+    var d = new Date(milliseconds);
+    var h = d.getHours();
+    var m = (d.getMinutes()+'').length === 1 ? '0'+d.getMinutes() : d.getMinutes();
+    var h12 = h > 12 ? h - 12 : h;
+    var ampm = h < 12 ? 'am' : 'pm';
+    return h12 + ':' + m + ampm;
+  };
 })

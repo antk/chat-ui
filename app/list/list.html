@@ -7,6 +7,7 @@
           <strong>{{ participant.firstName }}{{ $last ? '' : ',' }}</strong>
         </div>
         <div class="lastMsg" ng-bind-html="chat.messages[chat.messages.length-1].text | imgFilter"></div>
+        <div class="timestamp">{{ chat.messages[chat.messages.length-1].datetime | datetime }}</div>
       </a>
     </li>
   </ul>

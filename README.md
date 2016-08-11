@@ -29,6 +29,10 @@ app skeleton taken from [angular-seed](https://github.com/angular/angular-seed)
 
 hit [http://localhost:8000/](http://localhost:8000/)
 
-####Run tests
+####Run unity tests
 
 ```$ npm test```
+
+####Run e2e tests
+
+```npm run protractor```

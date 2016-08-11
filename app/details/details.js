@@ -214,6 +214,7 @@ angular.module('chat.details', ['ngRoute','ngAnimate', 'ngSanitize'])
         var theChat = {};
 
         if($scope.newChat) {
+          // console.log(data.user.contacts);
           $scope.contacts = data.user.contacts;
         }
         else {

@@ -26,6 +26,7 @@ filter('imgFilter', function() {
     var m = (d.getMinutes()+'').length === 1 ? '0'+d.getMinutes() : d.getMinutes();
     var h12 = h > 12 ? h - 12 : h;
     var ampm = h < 12 ? 'am' : 'pm';
-    return h12 + ':' + m + ampm;
+    var date = (d.getMonth()+1) + '/' + (d.getDate()+1) + '/' + d.getFullYear();
+    return date + ' - ' + h12 + ':' + m + ampm;
   };
 })

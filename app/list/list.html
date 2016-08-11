@@ -1,13 +1,13 @@
 <section-header title="Chats" type="list"></section-header>
 <div class="chat-list-container content-container" set-height>
   <ul class="chat-list">
-    <li ng-repeat="chat in userChats track by $index">
-      <a ng-href="#!/details/{{uid}}/{{chat.chat_id}}">
-        <div class="participants" ng-repeat="participant in chat.participants track by $index">
+    <li ng-repeat="chatObj in userChats | orderBy:'-lastDateTime'">
+      <a ng-href="#!/details/{{uid}}/{{chatObj.chat.chat_id}}">
+        <div class="participants" ng-repeat="participant in chatObj.chat.participants track by $index">
           <strong>{{ participant.firstName }}{{ $last ? '' : ',' }}</strong>
         </div>
-        <div class="lastMsg" ng-bind-html="chat.messages[chat.messages.length-1].text | imgFilter"></div>
-        <div class="timestamp">{{ chat.messages[chat.messages.length-1].datetime | datetime }}</div>
+        <div class="lastMsg" ng-bind-html="chatObj.chat.messages[chatObj.chat.messages.length-1].text | imgFilter"></div>
+        <div class="timestamp">{{ chatObj.chat.messages[chatObj.chat.messages.length-1].datetime | datetime }}</div>
       </a>
     </li>
   </ul>

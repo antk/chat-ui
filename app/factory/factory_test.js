@@ -1,6 +1,6 @@
 'use strict'
 
-describe('Data Service Test', function() {
+describe('DataService.getChats()', function() {
   var DataService,
       httpBackend;
 
@@ -20,7 +20,7 @@ describe('Data Service Test', function() {
     httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('should do something', function() {
+  it('should respond with chat data', function() {
 
     // respond with this data
     var respondData = [

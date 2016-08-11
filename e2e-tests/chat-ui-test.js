@@ -15,7 +15,7 @@ describe('chat ui tests', function() {
     beforeEach(function() {
       browser.get('index.html#!/list/0');
       element.all(by.repeater('chatObj in userChats')).get(0).click();
-      // browser.sleep(5000);
+      browser.sleep(2000);
     });
 
     it('should render chat details when user clicks on a chat', function() {
@@ -25,4 +25,24 @@ describe('chat ui tests', function() {
       })
     });
   });
+
+  describe('chat details send message', function() {
+    var chatLength;
+    beforeEach(function() {
+      browser.get('index.html#!/list/0');
+      browser.sleep(2000);
+      element.all(by.repeater('chatObj in userChats')).get(0).click();
+      browser.sleep(2000);
+      element.all(by.repeater('msg in messages')).count().then(function(count) { chatLength = count });
+    });
+
+    it('should add a message to the chat', function() {
+      element(by.id('msgEl')).sendKeys('this is a test message');
+      element(by.css('.send-link')).click();
+      browser.sleep(2000);
+      element.all(by.repeater('msg in messages')).count().then(function(newCount) {
+        expect(newCount).toEqual(chatLength+1);
+      });
+    })
+  })
 });

@@ -17,6 +17,10 @@ exports.config = {
 
   jasmineNodeOpts: {
     defaultTimeoutInterval: 30000
+  },
+
+  onPrepare: function() {
+    browser.manage().window().setSize(800, 600);
   }
 
 };

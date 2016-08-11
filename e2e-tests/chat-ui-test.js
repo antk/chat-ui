@@ -14,6 +14,7 @@ describe('chat ui tests', function() {
 
     beforeEach(function() {
       browser.get('index.html#!/list/0');
+      browser.sleep(2000);
       element.all(by.repeater('chatObj in userChats')).get(0).click();
       browser.sleep(2000);
     });

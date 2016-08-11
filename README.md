@@ -28,3 +28,7 @@ app skeleton taken from [angular-seed](https://github.com/angular/angular-seed)
 ```$ npm start```
 
 hit [http://localhost:8000/](http://localhost:8000/)
+
+####Run tests
+
+```$ npm test```

@@ -7,7 +7,7 @@ app skeleton taken from [angular-seed](https://github.com/angular/angular-seed)
 
 `$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 
-####Install Git (if not already installed)
+####Install Git
 
 `$ brew install git`
 
@@ -15,9 +15,15 @@ app skeleton taken from [angular-seed](https://github.com/angular/angular-seed)
 
 `$ brew install node`
 
-####Clone this repo
+####Clone or download zip of this repo
+
+#####Clone
 
 ```$ git clone git@github.com:antk/chat-ui.git```
+
+#####Download zip
+* save to location of choice
+* cd to saved location
 
 ####Install dependencies
 
@@ -29,7 +35,7 @@ app skeleton taken from [angular-seed](https://github.com/angular/angular-seed)
 
 hit [http://localhost:8000/](http://localhost:8000/)
 
-####Run unity tests
+####Run unit tests
 
 ```$ npm test```
 

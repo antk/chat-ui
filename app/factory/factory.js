@@ -57,7 +57,6 @@ angular.module('chat')
             if(chatData[i].chat_id === cid) {
               theChat = chatData[i];
               theChat.participants = getParticipants(theChat.participants, userData);
-              // console.log(theChat);
               break;
             }
           } while(i--);
@@ -115,7 +114,7 @@ angular.module('chat')
         data.user = theData.user;
         data.chats = theData.chats;
         DataService.getUsers().then(function(userData) {
-          // convert userData array to key value pairs
+          // convert userData array to key value pairs for faster processing
           var kvUsers = {};
           var i = userData.length - 1;
           do {

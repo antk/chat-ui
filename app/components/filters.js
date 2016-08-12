@@ -3,6 +3,8 @@
 angular.module('chat')
 
 .filter('imgFilter', function() {
+  // replace messages with image attachments with a simple msg
+  // mostly for use in chat list view
   return function(str) {
     return str.match(/<img\s.*\/>/) ? "<em>image attachment</em>" : str;
   };

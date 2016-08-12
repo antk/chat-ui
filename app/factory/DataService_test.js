@@ -34,7 +34,6 @@ describe('DataService.getChats', function() {
         {"msg_id":2, "sender_id":1, "text":"puny spider", "datetime":""}
       ]
     }];
-    // httpBackend.when('GET', '/data/chats.json').respond(200, respondData);
 
     // when DataService makes a get request, respond with respondData
     httpBackend.expectGET('../data/chats.json').respond(respondData);

@@ -41,8 +41,11 @@ hit [http://localhost:8000/](http://localhost:8000/)
 
 ####Run e2e tests
 on first run
+
 ```npm run update-webdriver```
+
 to update WebDriver
 
 then
+
 ```npm run protractor```

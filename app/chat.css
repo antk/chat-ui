@@ -42,11 +42,12 @@ header .new-msg {  }
 .chat-list li { border-bottom: 1px solid #ccc; position: relative; }
 .chat-list li a { display: block; padding: 10px; }
 .chat-list .participants { display: inline-block; margin: 0 3px 0 0; }
+.chat-list .lastMsg { width: 70%; overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .chat-list .lastMsg img { max-width: 25%; }
 .chat-list .timestamp { color: #999; font-size: 0.8em; position: absolute; top: 12px; right: 10px; }
 
 .chat-detail { overflow: auto; }
-.chat-detail .message-detail-container { background: #eee; }
+.chat-detail .chat-detail-content { background: #eee; }
 .chat-detail .new-message-field { border-top: 1px solid #ccc; width: 100%; position: absolute; bottom: 0; }
 .chat-detail .new-message-inputs { padding: 10px; background-color: #fff; }
 .chat-detail .new-message-inputs input[type="text"] { border: 1px solid #eee; padding: 5px; width: 75%; }

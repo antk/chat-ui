@@ -9,10 +9,19 @@ angular.module('chat')
         var headerHeight = document.getElementById('header') ? document.getElementById('header').offsetHeight : 0;
         var footerHeight = document.getElementById('footer') ? document.getElementById('footer').offsetHeight : 0;
         var windowHeight = $window.innerHeight;
-        var theHeight = windowHeight - headerHeight;// - footerHeight;
+        var theHeight = windowHeight - headerHeight - footerHeight;
         $element.css('height', theHeight + 'px');
       })
+    }
+  }
+}])
 
+.directive('setHeightWindow', ['$window', function($window) {
+  return {
+    link: function($scope, $element, $attrs) {
+      angular.element(document).ready(function() {
+        $element.css('height', $window.innerHeight + 'px');
+      });
     }
   }
 }])
